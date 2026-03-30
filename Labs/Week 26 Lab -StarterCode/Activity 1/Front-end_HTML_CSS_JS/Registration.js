@@ -71,45 +71,16 @@ function createNewParagraph(content){
 
 //Function  to submit the form, this should be called by the Register button
 //on click
-// Submit form
-async function submitForm() {
+function submitForm(){
     readForm();
     validateForm();
+    if (formValid){
+        let formText = formData.username +" registered as:\n";
+        formText += formData.buyer?"buyer\n":"";
+        formText += formData.seller?"seller":"";
 
-    if (formValid) {
-        try {
-            let userType = "NONE";
-
-            if (formData.buyer) userType = "BUYER";
-            if (formData.seller) userType = "SELLER";
-
-            const requestData = {
-                name: formData.username,
-                email: formData.email,
-                password: formData.password,
-                buyer: formData.buyer,
-                seller: formData.seller
-            };
-
-            const response = await fetch("http://localhost:8080/user", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(requestData)
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                console.log(data);
-                createNewParagraph("Registered Successfully");
-            } else {
-                const errorText = await response.text();
-                console.error(errorText);
-                createNewParagraph("Registration failed.");
-            }
-
-        } catch (error) {
-            console.error("Error:", error);
-            createNewParagraph("Server error. Please try again.");
-        }
+        console.log(formText);
+        createNewParagraph(formText);
     }
 }
+

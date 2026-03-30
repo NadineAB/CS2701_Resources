@@ -46,10 +46,13 @@ export default function Registration(){
 
         return formValid;
     }
-
+/*you need to modify the code for handleSubmit in Registration.jsx, so that it
+can make an Axios post request to the ‘http://localhost:8080/user’ endpoint. Refer to Week
+9 lecture and lab for information on Axios.
+*/
     const handleSubmit = (event) => {
         event.preventDefault();
-
+        
         if(validateForm()){
             axios.post('/user',{
                 name: name.current.value,
